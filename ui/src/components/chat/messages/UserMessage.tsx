@@ -71,6 +71,7 @@ export function UserMessage({ content, trace_id, ext, finished }: UserMessagePro
 
     return (
         <BaseMessage name="User" isUser={true}>
+<<<<<<< HEAD
             <div className="w-full rounded-lg border border-gray-700 p-4 text-gray-700 text-sm break-words">
                 {
                     images.length > 0 && (
@@ -96,6 +97,18 @@ export function UserMessage({ content, trace_id, ext, finished }: UserMessagePro
                                 title={`Restore to version before this request (Checkpoint ${checkpointId})`}
                             />
                         )}
+=======
+            <div className="w-full rounded-lg border border-gray-700 p-4 text-gray-700 text-sm break-words relative">
+                <p className="whitespace-pre-wrap leading-snug">{content}</p>
+                {trace_id && (
+                    <div 
+                        className="absolute bottom-1 right-1.5 cursor-pointer opacity-40 hover:opacity-100 transition-opacity"
+                        onMouseEnter={() => setShowTooltip(true)}
+                        onMouseLeave={() => setShowTooltip(false)}
+                        onClick={handleCopyTraceId}
+                    >
+                        <InformationCircleIcon className="h-3.5 w-3.5 text-gray-500 hover:!text-gray-700" />
+>>>>>>> origin/chat_stream
                         
                         {/* Trace ID icon */}
                         {trace_id && (

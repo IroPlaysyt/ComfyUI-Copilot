@@ -31,6 +31,7 @@ interface ChatState {
   showChat: boolean;
   activeTab: TabType;
   screenState: ScreenState | null; // Add screen state
+  guiding: boolean;
 }
 
 type ChatAction = 
@@ -44,6 +45,10 @@ type ChatAction =
   | { type: 'SET_SHOW_CHAT'; payload: boolean }
   | { type: 'SET_ACTIVE_TAB'; payload: TabType }
   | { type: 'SET_SCREEN_STATE'; payload: ScreenState | null } // Add action for setting screen state
+<<<<<<< HEAD
+=======
+  | { type: 'SET_GUIDING', payload: boolean}
+>>>>>>> origin/chat_stream
   | { type: 'CLEAR_MESSAGES' }
 
 const initialState: ChatState = {
@@ -55,6 +60,7 @@ const initialState: ChatState = {
   showChat: false,
   activeTab: 'chat',
   screenState: null, // Initialize as null
+  guiding: false
 };
 
 function chatReducer(state: ChatState, action: ChatAction): ChatState {
@@ -84,6 +90,8 @@ function chatReducer(state: ChatState, action: ChatAction): ChatState {
       return { ...state, activeTab: action.payload };
     case 'SET_SCREEN_STATE':
       return { ...state, screenState: action.payload };
+    case 'SET_GUIDING':
+      return { ...state, guiding: action.payload };
     case 'CLEAR_MESSAGES':
       return { ...state, messages: [] };
     default:

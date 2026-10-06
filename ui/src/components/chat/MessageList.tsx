@@ -7,10 +7,15 @@ import { LoadingMessage } from "./messages/LoadingMessage";
 import { generateUUID } from "../../utils/uuid";
 import { app } from "../../utils/comfyapp";
 import { addNodeOnGraph } from "../../utils/graphUtils";
+<<<<<<< HEAD
 import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import Showcase from "./messages/Showcase";
 import { useChatContext } from "../../context/ChatContext";
 import { mergeByKeyCombine } from "../../utils/tools";
+=======
+import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
+import QuestionTitleMessage from "./messages/QuestionTitleMessage";
+>>>>>>> origin/chat_stream
 
 // Define types for ext items to avoid implicit any
 interface ExtItem {
@@ -239,6 +244,10 @@ export function MessageList({ messages, latestInput, onOptionClick, installedNod
 
         if (message.role === 'showcase') {
             return <Showcase key={'showcase'} scrollRef={scrollRef}/>
+        }
+
+        if (message.role === 'question_title') {
+            return <QuestionTitleMessage />
         }
 
         if (message.role === 'ai' || message.role === 'tool') {
