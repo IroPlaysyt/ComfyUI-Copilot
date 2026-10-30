@@ -33,6 +33,7 @@ import type { TabType } from '../context/ChatContext';
 import { ParameterDebugInterface } from "../components/debug/ParameterDebugInterfaceV2";
 import { COPILOT_EVENTS } from "../constants/events";
 import { app } from "../utils/comfyapp";
+<<<<<<< HEAD
 import { config } from "../config";
 import { mergeByKeyCombine } from "../utils/tools";
 import useLanguage from "../hooks/useLanguage";
@@ -42,6 +43,8 @@ import { LocalStorageKeys, setLocalStorage } from "../utils/localStorageManager"
 import TabButton from "../components/ui/TabButton";
 
 const BASE_URL = config.apiBaseUrl
+=======
+>>>>>>> origin/chat_stream
 
 interface WorkflowChatProps {
     onClose?: () => void;
@@ -150,6 +153,7 @@ const ParameterDebugTab = () => {
 };
 
 // Tab component
+<<<<<<< HEAD
 // const TabButton = ({ 
 //     active, 
 //     onClick, 
@@ -174,6 +178,32 @@ const ParameterDebugTab = () => {
 export default function WorkflowChat({ onClose, visible = true, triggerUsage = false, onUsageTriggered }: WorkflowChatProps) {
     const { state, dispatch, showcasIng, abortControllerRef } = useChatContext();
     const { messages, installedNodes, loading, sessionId, selectedNode, activeTab } = state;
+=======
+const TabButton = ({ 
+    active, 
+    onClick, 
+    children 
+}: { 
+    active: boolean; 
+    onClick: () => void; 
+    children: React.ReactNode 
+}) => (
+    <button
+        onClick={onClick}
+        className={`px-4 py-2 font-medium text-xs transition-colors duration-200 border-b-2 ${
+            active 
+                ? "text-[#71A3F2] border-[#71A3F2]" 
+                : "text-gray-600 border-transparent hover:!text-[#71A3F2] hover:!border-[#71A3F2]"
+        }`}
+    >
+        {children}
+    </button>
+);
+
+export default function WorkflowChat({ onClose, visible = true, triggerUsage = false, onUsageTriggered }: WorkflowChatProps) {
+    const { state, dispatch } = useChatContext();
+    const { messages, installedNodes, loading, sessionId, selectedNode, activeTab, guiding } = state;
+>>>>>>> origin/chat_stream
     const messageDivRef = useRef<HTMLDivElement>(null);
     const [input, setInput] = useState<string>('');
     const [latestInput, setLatestInput] = useState<string>('');
@@ -187,9 +217,14 @@ export default function WorkflowChat({ onClose, visible = true, triggerUsage = f
     const [announcement, setAnnouncement] = useState<string>('');
     const [showAnnouncement, setShowAnnouncement] = useState<boolean>(false);
     // 添加 AbortController 引用
+<<<<<<< HEAD
     // const abortControllerRef = useRef<AbortController | null>(null);
     const currentSelectedNode = useRef<any>(selectedNode)
     const chatInputRef = useRef<ChatInputRef>(null);
+=======
+    const abortControllerRef = useRef<AbortController | null>(null);
+    const currentSelectedNode = useRef<any>(selectedNode)
+>>>>>>> origin/chat_stream
     const [dispatchEventType, setDispatchEventType] = useState<DispatchEventType>(DispatchEventType.NONE);
     // 使用自定义 hooks，只在visible为true且activeTab为chat时启用
     useMousePosition(visible && activeTab === 'chat');
@@ -242,10 +277,18 @@ export default function WorkflowChat({ onClose, visible = true, triggerUsage = f
     }, [activeTab]);
 
     const showGuide = () => {
+<<<<<<< HEAD
         dispatch({ type: 'SET_MESSAGES', payload: [
             {
                 id: generateUUID(),
                 role: 'showcase',
+=======
+        dispatch({ type: 'SET_GUIDING', payload: true });
+        dispatch({ type: 'SET_MESSAGES', payload: [
+            {
+                id: generateUUID(),
+                role: 'question_title',
+>>>>>>> origin/chat_stream
                 content: ''
             }
         ]})
@@ -381,10 +424,17 @@ export default function WorkflowChat({ onClose, visible = true, triggerUsage = f
     }
 
     const handleSendMessage = async () => {
+<<<<<<< HEAD
         if (messages?.[0]?.role === 'showcase') {
             dispatch({ type: 'CLEAR_MESSAGES' });
         }
         showcasIng.current = false;
+=======
+        if (guiding) {
+            dispatch({ type: 'SET_GUIDING', payload: false });
+            dispatch({ type: 'CLEAR_MESSAGES' });
+        }
+>>>>>>> origin/chat_stream
         dispatch({ type: 'SET_LOADING', payload: true });
         if ((input.trim() === "" && !selectedNode) || !sessionId) return;
         setLatestInput(input);
@@ -668,7 +718,10 @@ export default function WorkflowChat({ onClose, visible = true, triggerUsage = f
         }
     };
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/chat_stream
     const onUsage = () => {
         handleSendMessageWithContent(`Reply in ${navigator.language} language: How does the ${selectedNode?.[0]?.type} node work? I need its official usage guide.`)
     }
@@ -955,14 +1008,14 @@ export default function WorkflowChat({ onClose, visible = true, triggerUsage = f
                     className="border-t px-4 py-3 border-gray-200 bg-white sticky bottom-0"
                     style={{ display: activeTab === 'chat' ? 'block' : 'none' }}
                 >
-                    {selectedNode && (
+                    {/* {selectedNode && (
                         <SelectedNodeInfo 
                             nodeInfo={selectedNode}
                             onSendWithIntent={handleSendMessageWithIntent}
                             loading={loading}
                             onSendWithContent={handleSendMessageWithContent}
                         />
-                    )}
+                    )} */}
 
                     <ChatInput 
                         ref={chatInputRef}
